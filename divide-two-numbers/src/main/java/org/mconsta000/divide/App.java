@@ -3,28 +3,31 @@ package org.mconsta000.divide;
 
 public final class App {
     public int divide(int dividend, int divisor) {
-        final int mask = -1;
+        final int mask = 0xffffffff;
 
-        boolean negate = false;
+        boolean negate = true;
 
-        if ((dividend & Integer.MIN_VALUE) == Integer.MIN_VALUE) {
+        if (dividend > 0) {
             negate = !negate;
-            dividend = (dividend ^ mask) + 1;
+            dividend = (dividend-1) ^ mask;
         }
 
-        if ((divisor & Integer.MIN_VALUE) == Integer.MIN_VALUE) {
+        if (divisor > 0) {
             negate = !negate;
-            divisor = (divisor ^ mask) + 1;
+            divisor = (divisor-1) ^ mask;
         }
 
         int ret = 0;
-        while (dividend >= divisor) {
-            ret++;
+        while (dividend <= divisor) {
+            ret--;
             dividend -= divisor;
         }
 
         if (negate) {
-            ret = (ret-1) ^ mask;
+            if (ret == Integer.MIN_VALUE)
+                ret = Integer.MAX_VALUE;
+            else
+                ret = (ret ^ mask) + 1;
         }
 
         return ret;        

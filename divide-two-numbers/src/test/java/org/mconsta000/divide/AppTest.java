@@ -39,7 +39,7 @@ public class AppTest {
 
     @Test
     public void testOverflow() {
-        assertEquals(-Integer.MIN_VALUE, app.divide(Integer.MIN_VALUE,-1));
+        assertEquals(Integer.MAX_VALUE, app.divide(Integer.MIN_VALUE,-1));
     }
 
     @Test
