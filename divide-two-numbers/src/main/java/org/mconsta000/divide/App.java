@@ -3,33 +3,27 @@ package org.mconsta000.divide;
 
 public final class App {
     public int divide(int dividend, int divisor) {
-        final int mask = 0xffffffff;
+        int answer = 0;
+        int template = 1;
+        int base = Integer.bitCount(iDivisor);
+        int leftOver = 0;
 
-        boolean negate = true;
+        for (int i=31; i>=base; i--) {
+            int mask = template << i;
+            int current = (iDividend & mask) + leftOver;
 
-        if (dividend > 0) {
-            negate = !negate;
-            dividend = (dividend-1) ^ mask;
+            answer = answer << 1;
+            if (iDivisor <= current) {
+                answer = answer | 1;
+                template = 1;
+                leftOver = current - iDivisor;
+            }
+            else {
+                template = template << 1;
+                template = template | 1;
+            }
         }
 
-        if (divisor > 0) {
-            negate = !negate;
-            divisor = (divisor-1) ^ mask;
-        }
-
-        int ret = 0;
-        while (dividend <= divisor) {
-            ret--;
-            dividend -= divisor;
-        }
-
-        if (negate) {
-            if (ret == Integer.MIN_VALUE)
-                ret = Integer.MAX_VALUE;
-            else
-                ret = (ret ^ mask) + 1;
-        }
-
-        return ret;        
+        return answer;
     }
 }
