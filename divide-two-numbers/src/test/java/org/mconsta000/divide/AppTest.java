@@ -93,22 +93,22 @@ public class AppTest {
     }
 
     @Test(timeout = 500)
-    public void testOverflow() {
+    public void testBounary1() {
         assertEquals(Integer.MAX_VALUE, app.divide(Integer.MIN_VALUE,-1));
     }
 
     @Test()
-    public void testOverflow2() {
+    public void testBounary2() {
         assertEquals(Integer.MIN_VALUE, app.divide(Integer.MIN_VALUE,1));
     }
 
     @Test(timeout = 500)
-    public void testUnderflow() {
+    public void testBoundary3() {
         assertEquals(-Integer.MAX_VALUE, app.divide(Integer.MAX_VALUE,-1));
     }
 
     @Test(timeout = 500)
-    public void testUnderflow2() {
+    public void testBoundary4() {
         assertEquals(Integer.MAX_VALUE, app.divide(Integer.MAX_VALUE,1));
     }
 }
