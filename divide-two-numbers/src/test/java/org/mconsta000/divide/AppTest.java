@@ -8,30 +8,6 @@ public class AppTest {
     private App app = new App();
 
     @Test(timeout = 500)
-    public void testExtract1() {
-        // 1100 0000 0000 0000 0000 0000 0000 0000
-        //    c    0    0    0    0    0    0    0 
-        assertEquals(Long.toBinaryString(0x00000001), 
-            Long.toBinaryString(app.extract(0xc0000000l, 0x80000000l, 31)));
-    }
-
-    @Test(timeout = 500)
-    public void testExtract7() {
-        // 0100 0000 0000 0000 0000 0000 0000 0000
-        //    4    0    0    0    0    0    0    0 
-        assertEquals(Long.toBinaryString(0x00000007), 
-            Long.toBinaryString(app.extract(0x70000000l, 0x70000000l, 28)));
-    }
-
-    @Test(timeout = 500)
-    public void testExtract10() {
-        // 0000 0000 0000 0000 0000 0000 0000 1010
-        //    0    0    0    0    0    0    0    a 
-        assertEquals(Long.toBinaryString(0x00000002), 
-            Long.toBinaryString(app.extract(0x0000000al, 0x0000000cl, 2)));
-    }
-
-    @Test(timeout = 500)
     public void testPositive() {
         assertEquals(5, app.divide(10,2));
     }

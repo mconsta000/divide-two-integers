@@ -2,11 +2,6 @@ package org.mconsta000.divide;
 
 
 public final class App {
-     protected long extract(long dividend, long mask, int bit_pos) {
-        long work = dividend & mask;
-        return (work >> bit_pos);
-    }
-
     public int divide(int dividend, int divisor) {
         boolean negate = false;
         long lDividend = dividend;
@@ -36,7 +31,7 @@ public final class App {
 
             // extract the bits using the bit_mask
             remainder = remainder << 1;
-            long work = extract(lDividend, mask, i) | remainder;
+            long work = ((lDividend & mask) >> i) | remainder;
 
             // calculate next bit
             answer = (answer << 1); 
