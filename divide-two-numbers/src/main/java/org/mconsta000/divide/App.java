@@ -2,26 +2,17 @@ package org.mconsta000.divide;
 
 
 public final class App {
-    protected long buildMask(long size) {
-        long bit_mask = 0x80000000l;
-        long mask = 0;
-
-        for (int i=0; i<size; i++) {
-            mask = mask | bit_mask;
-            bit_mask = bit_mask >> 1;
-        }
-        return mask;
-    }
-
-    protected long extract(long dividend, long mask, long mask_size, int bit_pos) {
+     protected long extract(long dividend, long mask, int bit_pos) {
         long work = dividend & mask;
-        return (work >> (bit_pos + 1 - mask_size));
+        return (work >> bit_pos);
     }
 
     public int divide(int dividend, int divisor) {
         boolean negate = false;
         long lDividend = dividend;
         long lDivisor = divisor;
+        long remainder = 0;
+        long bit_mask = 0x80000000l;
 
         if (lDividend < 0) {
             negate = !negate;
@@ -33,17 +24,26 @@ public final class App {
             lDivisor = (lDivisor ^ -1) + 1;
         }
  
-        long mask_size = 64 - Long.numberOfLeadingZeros(lDivisor);
-        long mask = buildMask(mask_size);
+        long mask = 0;
         long answer = 0;
 
-        for (int i=31; i>=(mask_size-1); i--) {
-            long work = extract(lDividend, mask, mask_size, i);
+        for (int i=31; i>=0; i--) {
+            // build the dividend mask            
+            mask = mask | bit_mask;
 
+            // increment the bit_mask
+            bit_mask = bit_mask >> 1;
+
+            // extract the bits using the bit_mask
+            remainder = remainder << 1;
+            long work = extract(lDividend, mask, i) | remainder;
+
+            // calculate next bit
             answer = (answer << 1); 
-            mask = mask >> 1;
             if (work >= lDivisor) {
+                remainder = work - lDivisor;
                 answer = answer | 0x00000001;
+                mask = 0;
             }
         }
 
