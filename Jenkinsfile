@@ -1,5 +1,4 @@
 node {
-   def mvnHome
    stage('Preparation') { 
       // Get some code from a GitHub repository
       git 'https://github.com/mconsta000/divide-two-integers.git/'
