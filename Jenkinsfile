@@ -3,8 +3,10 @@ pipeline {
 
    stages {
    stage('Build') {
-      // Run the maven build
-      sh 'mvn -Dmaven.test.failure.ignore clean package'
+      steps{
+         // Run the maven build
+         sh 'mvn -Dmaven.test.failure.ignore clean package'
+      }
    }
    stage('Results') {
       steps {
