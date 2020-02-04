@@ -1,8 +1,4 @@
 node {
-   stage('Preparation') { 
-      // Get some code from a GitHub repository
-      git 'https://github.com/mconsta000/divide-two-integers.git/'
-   }
    stage('Build') {
       // Run the maven build
       jdk = tool name: 'Open JDK 8 i386', type: 'jdk'
